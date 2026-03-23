@@ -1,41 +1,28 @@
+import java.util.HashMap;
+import java.util.Map;
 
 public class BookStay {
 public static void main(String args[]){
 
+    RoomInventory inventory = new RoomInventory();
+    inventory.addRoomType("Single", 10);
+    inventory.addRoomType("Double", 0);  // intentionally unavailable
+    inventory.addRoomType("Suite", 3);
 
-        System.out.println("====================================");
-        System.out.println(" Book My Stay - Hotel Booking System");
-        System.out.println(" Version 2.1");
-        System.out.println("====================================\n");
+    // Room catalog (domain model)
+    Map<String, Room> roomCatalog = new HashMap<>();
 
-        // Creating Room Objects using polymorphism
-        Room singleRoom = new SingleRoom();
-        Room doubleRoom = new DoubleRoom();
-        Room suiteRoom = new SuiteRoom();
+    roomCatalog.put("Single", new Room("Single", 1000, "Bed, WiFi"));
+    roomCatalog.put("Double", new Room("Double", 1800, "Bed, WiFi, TV"));
+    roomCatalog.put("Suite", new Room("Suite", 3000, "Bed, WiFi, TV, Mini Bar"));
 
-        // Static availability variables
-        int singleRoomAvailability = 10;
-        int doubleRoomAvailability = 7;
-        int suiteRoomAvailability = 3;
+    // Guest triggers search
+    SearchService searchService = new SearchService();
+    searchService.searchAvailableRooms(inventory, roomCatalog);
 
-        // Display room information
-
-        System.out.println("Single Room Details:");
-        singleRoom.displayRoomDetails();
-        System.out.println("Available Rooms: " + singleRoomAvailability);
-        System.out.println();
-
-        System.out.println("Double Room Details:");
-        doubleRoom.displayRoomDetails();
-        System.out.println("Available Rooms: " + doubleRoomAvailability);
-        System.out.println();
-
-        System.out.println("Suite Room Details:");
-        suiteRoom.displayRoomDetails();
-        System.out.println("Available Rooms: " + suiteRoomAvailability);
-        System.out.println();
-
-        System.out.println("Application execution completed.");
+    // Verify inventory is unchanged
+    System.out.println("\nInventory After Search (unchanged):");
+    inventory.displayInventory();
     }
 }
 
