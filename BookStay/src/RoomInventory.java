@@ -3,7 +3,7 @@ import java.util.Map;
 
 public class RoomInventory {
 
-    // Centralized storage for room availability
+    // cCentralized storage for room availability
     private HashMap<String, Integer> inventory;
 
     // Constructor to initialize inventory
