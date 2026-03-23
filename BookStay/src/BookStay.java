@@ -3,39 +3,30 @@ public class BookStay {
 public static void main(String args[]){
 
 
-        System.out.println("====================================");
-        System.out.println(" Book My Stay - Hotel Booking System");
-        System.out.println(" Version 2.1");
-        System.out.println("====================================\n");
+    // Initialize inventory system
+    RoomInventory inventory = new RoomInventory();
 
-        // Creating Room Objects using polymorphism
-        Room singleRoom = new SingleRoom();
-        Room doubleRoom = new DoubleRoom();
-        Room suiteRoom = new SuiteRoom();
+    // Register room types
+    inventory.addRoomType("Single", 10);
+    inventory.addRoomType("Double", 5);
+    inventory.addRoomType("Suite", 2);
 
-        // Static availability variables
-        int singleRoomAvailability = 10;
-        int doubleRoomAvailability = 7;
-        int suiteRoomAvailability = 3;
+    // Display initial state
+    inventory.displayInventory();
 
-        // Display room information
+    // Simulate booking (reduce availability)
+    System.out.println("\nBooking 2 Single rooms...");
+    inventory.updateAvailability("Single", -2);
 
-        System.out.println("Single Room Details:");
-        singleRoom.displayRoomDetails();
-        System.out.println("Available Rooms: " + singleRoomAvailability);
-        System.out.println();
+    // Simulate cancellation (increase availability)
+    System.out.println("Cancelling 1 Double room...");
+    inventory.updateAvailability("Double", +1);
 
-        System.out.println("Double Room Details:");
-        doubleRoom.displayRoomDetails();
-        System.out.println("Available Rooms: " + doubleRoomAvailability);
-        System.out.println();
+    // Check specific availability
+    System.out.println("\nAvailable Suites: " + inventory.getAvailability("Suite"));
 
-        System.out.println("Suite Room Details:");
-        suiteRoom.displayRoomDetails();
-        System.out.println("Available Rooms: " + suiteRoomAvailability);
-        System.out.println();
-
-        System.out.println("Application execution completed.");
+    // Final inventory state
+    inventory.displayInventory();
     }
 }
 
